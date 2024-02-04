@@ -19,22 +19,6 @@ import logging
 BUTTONS = {}
 CAP = {}
 
-@Client.on_callback_query(filters.regex(r"^stream"))
-async def aks_downloader(bot, query):
-    file_id = query.data.split('#', 1)[1]
-    msg = await bot.send_cached_media(chat_id=BIN_CHANNEL, file_id=file_id)
-    watch = f"{URL}watch/{msg.id}"
-    download = f"{URL}download/{msg.id}"
-    btn= [[
-        InlineKeyboardButton("ᴡᴀᴛᴄʜ ᴏɴʟɪɴᴇ", url=watch),
-        InlineKeyboardButton("ꜰᴀsᴛ ᴅᴏᴡɴʟᴏᴀᴅ", url=download)
-    ],[
-        InlineKeyboardButton('❌ ᴄʟᴏsᴇ ❌', callback_data='close_data')
-    ]]
-    await query.edit_message_reply_markup(
-        reply_markup=InlineKeyboardMarkup(btn)
-    )
-
 @Client.on_message(filters.group & filters.text & filters.incoming)
 async def give_filter(client, message):
     settings = await get_settings(message.chat.id)
@@ -42,24 +26,27 @@ async def give_filter(client, message):
     userid = message.from_user.id if message.from_user else None
     fsub = settings['fsub']
     if settings.get('is_fsub', IS_FSUB) and fsub is not None:
-        btn = await is_subscribed(client, message, int(fsub))
-        if btn:
-            btn.append(
-                [InlineKeyboardButton("Unmute Me 🔕", callback_data=f"unmuteme#{chatid}")]
-            )
-            reply_markup = InlineKeyboardMarkup(btn)
-            try:
-                await client.restrict_chat_member(chatid, message.from_user.id, ChatPermissions(can_send_messages=False))
-                await message.reply_photo(
-                    photo=random.choice(PICS),
-                    caption=f"👋 Hello {message.from_user.mention},\n\nPlease join and try again. 😇",
-                    reply_markup=reply_markup,
-                    parse_mode=enums.ParseMode.HTML
+        try:
+            btn = await is_subscribed(client, message, int(fsub))
+            if btn:
+                btn.append(
+                    [InlineKeyboardButton("Unmute Me 🔕", callback_data=f"unmuteme#{chatid}")]
                 )
-                return
-            except Exception as e:
-                print(e)
-        else:
+                reply_markup = InlineKeyboardMarkup(btn)
+                try:
+                    await client.restrict_chat_member(chatid, message.from_user.id, ChatPermissions(can_send_messages=False))
+                    await message.reply_photo(
+                        photo=random.choice(PICS),
+                        caption=f"👋 Hello {message.from_user.mention},\n\nPlease join and try again. 😇",
+                        reply_markup=reply_markup,
+                        parse_mode=enums.ParseMode.HTML
+                    )
+                    return
+                except Exception as e:
+                    print(e)
+            else:
+                pass
+        except:
             pass
     else:
         pass
@@ -402,7 +389,23 @@ async def cb_handler(client: Client, query: CallbackQuery):
         if int(user) != 0 and query.from_user.id != int(user):
             return await query.answer(f"Hello {query.from_user.first_name},\nDon't Click Other Results!", show_alert=True)
         await query.answer(url=f"https://t.me/{temp.U_NAME}?start=file_{query.message.chat.id}_{file_id}")
-        
+
+    elif query.data.startswith("stream"):
+        file_id = query.data.split('#', 1)[1]
+        msg = await client.send_cached_media(chat_id=BIN_CHANNEL, file_id=file_id)
+        watch = f"{URL}watch/{msg.id}"
+        download = f"{URL}download/{msg.id}"
+        btn=[[
+            InlineKeyboardButton("ᴡᴀᴛᴄʜ ᴏɴʟɪɴᴇ", url=watch),
+            InlineKeyboardButton("ꜰᴀsᴛ ᴅᴏᴡɴʟᴏᴀᴅ", url=download)
+        ],[
+            InlineKeyboardButton('❌ ᴄʟᴏsᴇ ❌', callback_data='close_data')
+        ]]
+        reply_markup=InlineKeyboardMarkup(btn)
+        await query.edit_message_reply_markup(
+            reply_markup=reply_markup
+        )
+    
     elif query.data == "get_trail":
         user_id = query.from_user.id
         free_trial_status = await db.get_free_trial_status(user_id)
