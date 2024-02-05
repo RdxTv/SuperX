@@ -197,7 +197,7 @@ async def next_page(bot, query):
             ]
         )
     btn.append(
-        [InlineKeyboardButton("🚫 ᴄʟᴏsᴇ 🚫", callback_data="close_data")]
+        [InlineKeyboardButton("🙅 Close", callback_data="close_data")]
     )
     try:
         await query.message.edit_text(cap + files_link + del_msg, reply_markup=InlineKeyboardMarkup(btn), disable_web_page_preview=True)
@@ -396,10 +396,10 @@ async def cb_handler(client: Client, query: CallbackQuery):
         watch = f"{URL}watch/{msg.id}"
         download = f"{URL}download/{msg.id}"
         btn=[[
-            InlineKeyboardButton("ᴡᴀᴛᴄʜ ᴏɴʟɪɴᴇ", url=watch),
-            InlineKeyboardButton("ꜰᴀsᴛ ᴅᴏᴡɴʟᴏᴀᴅ", url=download)
+            InlineKeyboardButton("⚡ Watch Online", url=watch),
+            InlineKeyboardButton("🚀 Fast Download", url=download)
         ],[
-            InlineKeyboardButton('❌ ᴄʟᴏsᴇ ❌', callback_data='close_data')
+            InlineKeyboardButton('🙅 Close', callback_data='close_data')
         ]]
         reply_markup=InlineKeyboardMarkup(btn)
         await query.edit_message_reply_markup(
