@@ -46,18 +46,13 @@ async def start(client, message):
     
     if (len(message.command) != 2) or (len(message.command) == 2 and message.command[1] == 'start'):
         buttons = [[
-            InlineKeyboardButton("+ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ +", url=f'http://t.me/{temp.U_NAME}?startgroup=start')
+            InlineKeyboardButton('➕️ Add Me To Your Groups ➕', url=f'http://t.me/{temp.U_NAME}?startgroup=true')
+            ],[
+            InlineKeyboardButton('🙋🏻‍♀️ Help', callback_data='help'),
+            InlineKeyboardButton('🔍 Search', switch_inline_query_current_chat=''),
+            InlineKeyboardButton('🦹 About', callback_data='my_about')
         ],[
-            InlineKeyboardButton('🔎 sᴇᴀʀᴄʜ ɪɴʟɪɴᴇ 🔍', switch_inline_query_current_chat='')
-        ],[
-            InlineKeyboardButton('⚡️ ᴜᴘᴅᴀᴛᴇs ᴄʜᴀɴɴᴇʟ ⚡️', url=UPDATES_LINK),
-            InlineKeyboardButton('💡 Support Group 💡', url=SUPPORT_LINK)
-        ],[
-            InlineKeyboardButton('👨‍🚒 ʜᴇʟᴘ', callback_data='help'),
-            InlineKeyboardButton('📚 ᴀʙᴏᴜᴛ', callback_data='my_about'),
-            InlineKeyboardButton('👤 ᴏᴡɴᴇʀ', callback_data='my_owner')
-        ],[
-            InlineKeyboardButton('💰 ᴇᴀʀɴ ᴍᴏɴᴇʏ ʙʏ ʙᴏᴛ 💰', callback_data='earn')
+            InlineKeyboardButton('💰 Buy Subscription : Remove Ads 💰', callback_data='premium')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await message.reply_photo(
@@ -133,19 +128,13 @@ async def start(client, message):
             )   
             if settings.get('is_stream', IS_STREAM):
                 btn = [[
-                    InlineKeyboardButton("✛ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ ✛", callback_data=f"stream#{file.file_id}")
+                    InlineKeyboardButton("⚡ Watch & Download 🚀", callback_data=f"stream#{file.file_id}")
                 ],[
-                    InlineKeyboardButton('⚡️ ᴜᴘᴅᴀᴛᴇs ⚡️', url=UPDATES_LINK),
-                    InlineKeyboardButton('💡 ꜱᴜᴘᴘᴏʀᴛ 💡', url=SUPPORT_LINK)
-                ],[
-                    InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')
+                    InlineKeyboardButton('🙅 Close', callback_data='close_data')
                 ]]
             else:
                 btn = [[
-                    InlineKeyboardButton('⚡️ ᴜᴘᴅᴀᴛᴇs ⚡️', url=UPDATES_LINK),
-                    InlineKeyboardButton('💡 ꜱᴜᴘᴘᴏʀᴛ 💡', url=SUPPORT_LINK)
-                ],[
-                    InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')
+                    InlineKeyboardButton('🙅 Close', callback_data='close_data')
                 ]]
             await client.send_cached_media(
                 chat_id=message.from_user.id,
@@ -183,19 +172,13 @@ async def start(client, message):
     )
     if settings.get('is_stream', IS_STREAM):
         btn = [[
-            InlineKeyboardButton("✛ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ ✛", callback_data=f"stream#{file_id}")
+            InlineKeyboardButton("⚡ Watch & Download 🚀", callback_data=f"stream#{file_id}")
         ],[
-            InlineKeyboardButton('⚡️ ᴜᴘᴅᴀᴛᴇs ⚡️', url=UPDATES_LINK),
-            InlineKeyboardButton('💡 ꜱᴜᴘᴘᴏʀᴛ 💡', url=SUPPORT_LINK)
-        ],[
-            InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')
+            InlineKeyboardButton('🙅 Close', callback_data='close_data')
         ]]
     else:
         btn = [[
-            InlineKeyboardButton('⚡️ ᴜᴘᴅᴀᴛᴇs ⚡️', url=UPDATES_LINK),
-            InlineKeyboardButton('💡 ꜱᴜᴘᴘᴏʀᴛ 💡', url=SUPPORT_LINK)
-        ],[
-            InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')
+            InlineKeyboardButton('🙅 Close', callback_data='close_data')
         ]]
     await client.send_cached_media(
         chat_id=message.from_user.id,
