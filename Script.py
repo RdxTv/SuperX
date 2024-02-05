@@ -51,10 +51,16 @@ ID - <code>{}</code>
 Username - {}
 Total - <code>{}</code>"""
 
-    PREMIUM_TXT = """<b>You Can Use This Feature To Become Premium Member.  
-   
- 🚀 How To Use
- ◉ /stickerid  Reply To Any Sticker With This Commands
+    PREMIUM_TXT = """<b>🚀  Pʀᴇᴍɪᴜᴍ Fᴇᴀᴛᴜʀᴇs 🎁
+
+✅ No Need To Verify 
+🚫 Ad Free Experience 
+🔆 Unlimited Movie And Series 
+
+ 🦹 How To Become Premium Member.
+
+💲 /plan - Buy Subscription.
+⚡️ /myplan - Check Your Plans Details.
  </b>"""
 
     NEW_USER_TXT = """#NewUser
