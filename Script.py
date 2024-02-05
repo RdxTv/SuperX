@@ -1,30 +1,61 @@
 class script(object):
-    START_TXT = """<b>ʜᴇʏ {}, <i>{}</i>
-    
-ɪ ᴀᴍ ᴘᴏᴡᴇʀғᴜʟ ᴀᴜᴛᴏ ғɪʟᴛᴇʀ ᴡɪᴛʜ ʟɪɴᴋ sʜᴏʀᴛᴇɴᴇʀ ʙᴏᴛ. ʏᴏᴜ ᴄᴀɴ ᴜꜱᴇ ᴀꜱ ᴀᴜᴛᴏ ғɪʟᴛᴇʀ ᴡɪᴛʜ ʟɪɴᴋ sʜᴏʀᴛᴇɴᴇʀ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ... ɪᴛ'ꜱ ᴇᴀꜱʏ ᴛᴏ ᴜꜱᴇ ᴊᴜsᴛ ᴀᴅᴅ ᴍᴇ ᴀꜱ ᴀᴅᴍɪɴ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ ɪ ᴡɪʟʟ ᴘʀᴏᴠɪᴅᴇ ᴛʜᴇʀᴇ ᴍᴏᴠɪᴇꜱ ᴡɪᴛʜ ʏᴏᴜʀ ʟɪɴᴋ ꜱʜᴏʀᴛᴇɴᴇʀ... ♻️</b>"""
+    START_TXT = """<b>Hey {}, <i>{}</i>
+I Am PowerFul Auto Filter With Link Shortener. Just Add Me To Your Group And Enjoy... ♻️</b>"""
 
-    MY_ABOUT_TXT = """★ Server: <a href=https://www.heroku.com>Heroku</a>
-★ Database: <a href=https://www.mongodb.com>MongoDB</a>
-★ Language: <a href=https://www.python.org>Python</a>
-★ Library: <a href=https://pyrogram.org>Pyrogram</a>"""
+    MY_ABOUT_TXT = """👰 Name : <a href=https://t.me/PostQutoBot>Kajal Shukla</a>
+ 🦹 Creator : <a href='https://t.me/YourX'>YourX</a> 
+ 🤖 Version : 4.0</b>"""
 
     MY_OWNER_TXT = """★ Name: HA Bots
 ★ Username: @HA_Bots
 ★ Country: Sri Lanka 🇱🇰"""
 
-    STATUS_TXT = """🗂 Total Files: <code>{}</code>
-👤 Total Users: <code>{}</code>
-👥 Total Chats: <code>{}</code>
+    STATUS_TXT = """🗃️ Total Files: <code>{}</code>
+👪 Total Users: <code>{}</code>
+💬 Total Chats: <code>{}</code>
 🤑 Premium Users: <code>{}</code>
-✨ Used Storage: <code>{}</code>
-🗳 Free Storage: <code>{}</code>
-🚀 Bot Uptime: <code>{}</code>"""
+📂 Used Storage: <code>{}</code>
+🗂 Free Storage: <code>{}</code>
+⏰ Uptime: <code>{}</code>"""
+
+    OPENAI_TXT = """<b>Find Solution To Any Question With ChatGPT. 
+  
+ Commands And Usage: 
+  /Ask Your Question  
+  
+ Note: 
+ * This Feature Work Only Support Group.</b>"""
+
+    TELE_TXT = """<b>You Can Use This Feature To Upload Image On Telegraph 
+
+ • /telegraph - Send Me Picture Or Video Under 5MB.</b>""" 
+
+    GITHUB_TXT = """
+You Can Use This Feature To Search GitHub Repo.
+
+<b>Feature:</b>
+
+ /repo: <b>Use This Commands To Search Github Repo</b> 
+ Example:<code>/repo auto filter...</code> 
+</b>"""
+    
+    STICKER_TXT = """<b>You Can Use This Feature To Find Any Stickers ID.  
+   
+ 🚀 How To Use
+ ◉ /stickerid  Reply To Any Sticker With This Commands
+ </b>"""
 
     NEW_GROUP_TXT = """#NewGroup
 Title - {}
 ID - <code>{}</code>
 Username - {}
 Total - <code>{}</code>"""
+
+    PREMIUM_TXT = """<b>You Can Use This Feature To Become Premium Member.  
+   
+ 🚀 How To Use
+ ◉ /stickerid  Reply To Any Sticker With This Commands
+ </b>"""
 
     NEW_USER_TXT = """#NewUser
 ★ Name: {}
@@ -90,7 +121,9 @@ I can't find the <b>{}</b> in my database! 🥲
 🗣 Requested by: {message.from_user.mention}
 ©️ Powered by: <b>{message.chat.title}</b>"""
 
-    FILE_CAPTION = """<i>{file_name}</i>
+    FILE_CAPTION = """<b>📂 {file_name}
+<b>♻️ Size: {file_size}</b>
+<b>⚡ Powered By:- @YourXCloud
 
 🚫 ᴘʟᴇᴀsᴇ ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ ᴄʟᴏsᴇ ʙᴜᴛᴛᴏɴ ɪꜰ ʏᴏᴜ ʜᴀᴠᴇ sᴇᴇɴ ᴛʜᴇ ᴍᴏᴠɪᴇ 🚫"""
 
@@ -132,10 +165,9 @@ I can't find the <b>{}</b> in my database! 🥲
 /id - to check group or channel id
 /openai - Find solution to any question with ChatGPT</b>"""
 
-    SOURCE_TXT = """<b>ʙᴏᴛ ɢɪᴛʜᴜʙ ʀᴇᴘᴏsɪᴛᴏʀʏ -
-
-- ᴛʜɪꜱ ʙᴏᴛ ɪꜱ ᴀɴ ᴏᴘᴇɴ ꜱᴏᴜʀᴄᴇ ᴘʀᴏᴊᴇᴄᴛ.
-
-- ꜱᴏᴜʀᴄᴇ - <a href=https://github.com/HA-Bots/Auto-Filter-Bot>ʜᴇʀᴇ</a>
-
-- ᴅᴇᴠʟᴏᴘᴇʀ - @HA_Bots"""
+    FONT_TXT = """<b>You Can Use This Feature To Change Font Style   
+  
+ ⚡️ /font Your Text
+ Example:- /font TeamYourX 
+  
+ </b>"""
