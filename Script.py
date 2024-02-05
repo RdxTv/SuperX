@@ -2,13 +2,13 @@ class script(object):
     START_TXT = """<b>Hey {}, <i>{}</i>
 I Am PowerFul Auto Filter With Link Shortener. Just Add Me To Your Group And Enjoy... ♻️</b>"""
 
-    MY_ABOUT_TXT = """👰 Name : <a href=https://t.me/PostQutoBot>Kajal Shukla</a>
+    MY_ABOUT_TXT = """👰 Name : <a href=https://t.me/DesiWildBot>Archive</a>
  🦹 Creator : <a href='https://t.me/YourX'>YourX</a> 
  🤖 Version : 4.0</b>"""
 
-    MY_OWNER_TXT = """★ Name: HA Bots
-★ Username: @HA_Bots
-★ Country: Sri Lanka 🇱🇰"""
+    MY_OWNER_TXT = """★ Name: Amit Sharma
+★ Username: @RjdTv
+★ Country: Hindustan 🚩"""
 
     STATUS_TXT = """🗃️ Total Files: <code>{}</code>
 👪 Total Users: <code>{}</code>
