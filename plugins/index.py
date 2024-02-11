@@ -3,7 +3,7 @@ import asyncio
 from pyrogram import Client, filters, enums
 from pyrogram.errors import FloodWait
 from pyrogram.errors.exceptions.bad_request_400 import ChannelInvalid, ChatAdminRequired, UsernameInvalid, UsernameNotModified, UserIsBlocked
-from info import ADMINS, LOG_CHANNEL
+from info import ADMINS, LOG_CHANNEL, INDEX_EXTENSIONS
 from database.ia_filterdb import save_file
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from utils import temp, get_readable_time
@@ -31,7 +31,6 @@ async def index_files(bot, query):
 async def send_for_index(bot, message):
     if lock.locked():
         return await message.reply('Wait until previous process complete.')
-    i = await message.reply("Forward last message or send last message link.")
     msg = await bot.listen(chat_id=message.chat.id, user_id=message.from_user.id)
     await i.delete()
     if msg.text and msg.text.startswith("https://t.me"):
@@ -113,8 +112,7 @@ async def index_files_to_db(lst_msg_id, chat, msg, bot, skip):
                 if not media:
                     unsupported += 1
                     continue
-                media = getattr(message, message.media.value, None)
-                if not media:
+                elif not (str(media.file_name).lower()).endswith(tuple(INDEX_EXTENSIONS)):
                     unsupported += 1
                     continue
                 media.caption = message.caption
