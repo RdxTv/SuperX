@@ -112,6 +112,7 @@ AUTO_FILTER = is_enabled('AUTO_FILTER', True)
 IMDB = is_enabled('IMDB', False)
 SPELL_CHECK = is_enabled("SPELL_CHECK", True)
 SHORTLINK = is_enabled('SHORTLINK', True)
+USE_CAPTION_FILTER = is_enabled('USE_CAPTION_FILTER', True)
 
 PAYMENT_QR = environ.get('PAYMENT_QR', 'https://graph.org/file/0735a8ad44ac687c4e135.jpg')
 
