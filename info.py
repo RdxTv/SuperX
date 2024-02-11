@@ -99,7 +99,6 @@ SHORTLINK_URL = environ.get("SHORTLINK_URL", "mdiskshortner.link")
 SHORTLINK_API = environ.get("SHORTLINK_API", "104bf0c687cf1a6fb26ed2d029b95d9d384ded36")
 VERIFY_EXPIRE = int(environ.get('VERIFY_EXPIRE', 86400)) # Add time in seconds
 WELCOME_TEXT = environ.get("WELCOME_TEXT", script.WELCOME_TEXT)
-INDEX_EXTENSIONS = [extensions.lower() for extensions in environ.get('INDEX_EXTENSIONS', 'mp4 mkv').split()]
 
 # boolean settings
 IS_VERIFY = is_enabled('IS_VERIFY', False)
