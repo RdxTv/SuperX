@@ -6,10 +6,9 @@ from pyrogram.errors.exceptions.bad_request_400 import ChannelInvalid, ChatAdmin
 from info import ADMINS, LOG_CHANNEL
 from database.ia_filterdb import save_file
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from utils import temp
-import re
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
+from utils import temp, get_readable_time
+import re, time
+
 lock = asyncio.Lock()
 
 
