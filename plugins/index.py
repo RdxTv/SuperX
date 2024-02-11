@@ -27,48 +27,52 @@ async def index_files(bot, query):
         await query.message.edit("Trying to cancel Indexing...")
 
 
-@Client.on_message((filters.forwarded | (filters.regex("(https://)?(t\.me/|telegram\.me/|telegram\.dog/)(c/)?(\d+|[a-zA-Z_0-9]+)/(\d+)$")) & filters.text ) & filters.private & filters.incoming)
+@Client.on_message(filters.command('index') & filters.private & filters.incoming & filters.user(ADMINS))
 async def send_for_index(bot, message):
     if lock.locked():
         return await message.reply('Wait until previous process complete.')
-    if message.text:
-        regex = re.compile("(https://)?(t\.me/|telegram\.me/|telegram\.dog/)(c/)?(\d+|[a-zA-Z_0-9]+)/(\d+)$")
-        match = regex.match(message.text)
-        if not match:
-            return await message.reply('Invalid link')
-        chat_id = match.group(4)
-        last_msg_id = int(match.group(5))
-        if chat_id.isnumeric():
-            chat_id  = int(("-100" + chat_id))
-    elif message.forward_from_chat.type == enums.ChatType.CHANNEL:
-        last_msg_id = message.forward_from_message_id
-        chat_id = message.forward_from_chat.username or message.forward_from_chat.id
+    i = await message.reply("Forward last message or send last message link.")
+    msg = await bot.listen(chat_id=message.chat.id, user_id=message.from_user.id)
+    await i.delete()
+    if msg.text and msg.text.startswith("https://t.me"):
+        try:
+            msg_link = msg.text.split("/")
+            last_msg_id = int(msg_link[-1])
+            chat_id = msg_link[-2]
+            if chat_id.isnumeric():
+                chat_id = int(("-100" + chat_id))
+        except:
+            await message.reply('Invalid message link!')
+            return
+    elif msg.forward_from_chat and msg.forward_from_chat.type == enums.ChatType.CHANNEL:
+        last_msg_id = msg.forward_from_message_id
+        chat_id = msg.forward_from_chat.username or msg.forward_from_chat.id
     else:
+        await message.reply('This is not forwarded message or link.')
         return
     try:
         chat = await bot.get_chat(chat_id)
     except Exception as e:
-        logger.exception(e)
         return await message.reply(f'Errors - {e}')
 
     if chat.type != enums.ChatType.CHANNEL:
         return await message.reply("I can index only channels.")
-    if message.from_user.id in ADMINS:
-        buttons = [
-            [
-                InlineKeyboardButton('YES',
-                                     callback_data=f'index#yes#{chat_id}#{last_msg_id}')
-            ],
-            [
-                InlineKeyboardButton('CLOSE', callback_data='close_data'),
-            ]
-        ]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        await message.reply(
-            f'Do you want to index this channel?\n\nChannel ID or Username: <code>{chat_id}</code>\nLast Message ID: <code>{last_msg_id}</code>',
-            reply_markup=reply_markup)
-    else:
-        await message.reply("Sorry! You can't index files, You'r not my owner.")
+
+    s = await message.reply("Send skip message number.")
+    msg = await bot.listen(chat_id=message.chat.id, user_id=message.from_user.id)
+    await s.delete()
+    try:
+        skip = int(msg.text)
+    except:
+        return await message.reply("Number is invalid.")
+
+    buttons = [[
+        InlineKeyboardButton('YES', callback_data=f'index#yes#{chat_id}#{last_msg_id}#{skip}')
+    ],[
+        InlineKeyboardButton('CLOSE', callback_data='close_data'),
+    ]]
+    reply_markup = InlineKeyboardMarkup(buttons)
+    await message.reply(f'Do you want to index {chat.title} channel?\nTotal Messages: <code>{last_msg_id}</code>', reply_markup=reply_markup)
 
 
 async def index_files_to_db(lst_msg_id, chat, msg, bot, skip):
