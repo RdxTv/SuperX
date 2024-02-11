@@ -7,7 +7,7 @@ from pymongo.errors import DuplicateKeyError
 from umongo import Instance, Document, fields
 from motor.motor_asyncio import AsyncIOMotorClient
 from marshmallow.exceptions import ValidationError
-from info import DATABASE_URL, DATABASE_NAME, COLLECTION_NAME, MAX_BTN
+from info import DATABASE_URL, DATABASE_NAME, COLLECTION_NAME, MAX_BTN, USE_CAPTION_FILTER
 
 client = AsyncIOMotorClient(DATABASE_URL)
 db = client[DATABASE_NAME]
@@ -64,7 +64,10 @@ async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
     except:
         regex = query
 
-    filter = {'file_name': regex}
+    if USE_CAPTION_FILTER:
+        filter = {'$or': [{'file_name': regex}, {'caption': regex}]}
+    else:
+        filter = {'file_name': regex}
     cursor = Media.find(filter)
 
     # Sort by recent
