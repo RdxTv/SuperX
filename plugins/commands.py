@@ -90,7 +90,8 @@ async def start(client, message):
             btn = [[
                 InlineKeyboardButton("🧿 Verify 🧿", url=link)
             ],[
-                InlineKeyboardButton('🗳 Tutorial 🗳', url=VERIFY_TUTORIAL)
+                InlineKeyboardButton('🗳 Tutorial 🗳', url=VERIFY_TUTORIAL),
+                InlineKeyboardButton('💰 Buy Subscription : Remove Ads 💰', callback_data='premium')
             ]]
             await message.reply("You not verified today! Kindly verify now. 🔐", reply_markup=InlineKeyboardMarkup(btn), protect_content=True)
             return
@@ -157,7 +158,8 @@ async def start(client, message):
             btn = [[
                 InlineKeyboardButton("♻️ Get File ♻️", url=link)
             ],[
-                InlineKeyboardButton("📍 ʜᴏᴡ ᴛᴏ ᴏᴘᴇɴ ʟɪɴᴋ 📍", url=settings['tutorial'])
+                InlineKeyboardButton("📍 ʜᴏᴡ ᴛᴏ ᴏᴘᴇɴ ʟɪɴᴋ 📍", url=settings['tutorial']),
+                InlineKeyboardButton('💰 Buy Subscription : Remove Ads 💰', callback_data='premium')
             ]]
             await message.reply(f"[{get_size(files.file_size)}] {files.file_name}\n\nYour file is ready, Please get using this link. 👍", reply_markup=InlineKeyboardMarkup(btn), protect_content=True)
             return
@@ -266,7 +268,7 @@ async def settings(client, message):
             InlineKeyboardButton('Stream', callback_data=f'setgs#is_stream#{settings.get("is_stream", IS_STREAM)}#{str(grp_id)}'),
             InlineKeyboardButton('✅ On' if settings.get("is_stream", IS_STREAM) else '❌ Off', callback_data=f'setgs#is_stream#{settings.get("is_stream", IS_STREAM)}#{str(grp_id)}')
         ],[
-            InlineKeyboardButton('❌ Close ❌', callback_data='close_data')
+            InlineKeyboardButton('🙅 Close', callback_data='close_data')
         ]]
         await message.reply_text(
             text=f"Change your settings for <b>'{message.chat.title}'</b> as your wish. ⚙",
